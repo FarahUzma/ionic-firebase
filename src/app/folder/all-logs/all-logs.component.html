@@ -1,0 +1,36 @@
+<div id="all-logs-container">
+  <h2>All logs</h2>
+  <ion-item>
+    <ion-label> Building Name</ion-label>
+    <ion-select  (ionChange)="onBuildingSelected($any($event.target).value)" placeholder="Select Building">
+    <ion-select-option *ngFor="let build of buildingsDropdown" [value]="build">{{build.value}}
+    </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Select a room number -->
+  <ion-item>
+    <ion-label>Room number</ion-label>
+    <ion-select  [disabled]="!selectedBuildingId" (ionChange)="roomNumberSelected($any($event.target).value)" placeholder="Select Room Number">
+      <ion-select-option *ngFor="let room of roomsDropdown" [value]="room">{{room.value}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- All logs -->
+  <h3>{{areLogsLoading ? 'Loading...' : ''}}</h3>
+  <div *ngIf="!areLogsLoading">
+  <ion-grid>
+    <ion-row>
+      <ion-col>Amount</ion-col>
+      <ion-col>Created</ion-col>
+      <ion-col>Month</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let log of allLogs">
+      <ion-col>{{ log.amount }}</ion-col>
+      <ion-col>{{ log.created.toLocaleDateString() }}</ion-col>
+      <ion-col>{{ log.month }}</ion-col>
+    </ion-row>
+  </ion-grid>
+  </div>
+</div>

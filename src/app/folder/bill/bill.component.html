@@ -1,0 +1,19 @@
+<ion-content id="bill-component-container">
+  <ion-spinner *ngIf="showSpinner" style="width:100%;margin-top:30%"></ion-spinner>
+  
+    <div id="outerDiv">
+  <div id="Html2Pdf" #content class="content" *ngFor="let report of allReports">
+    
+    <h1 id="titles">{{report.buildingName}}              {{displayMonth}} {{newEntryYear}}</h1>
+  
+  <ngx-datatable class="bootstrap" [rows]="report.rows" 
+  [columns]="cols" [columnMode]="'force'"  [rowHeight]="'auto'" [headerHeight]="50"
+  ></ngx-datatable>
+
+  <h2 style="color:rgb(33, 129, 41);font-family: Garamond, serif;">Total : {{report.sum}}</h2>
+  </div>
+</div>
+<button printTitle="Print Title" printSectionId="Html2Pdf" ngxPrint>
+  Print
+</button>
+</ion-content>

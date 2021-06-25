@@ -1,0 +1,25 @@
+<div id="report-component-container">
+  <h1 id="title" style="padding: 10px;">Check Reports</h1>
+  <!-- start: Select a building -->
+  <ion-spinner *ngIf="showSpinner" style="width:100%"></ion-spinner>
+  <ion-item>
+    <ion-label> Building Name</ion-label>
+    <ion-select  (ionChange)="onBuildingSelected($any($event.target).value)" placeholder="Select Building">
+    <ion-select-option *ngFor="let building of buildingsDropdown" [value]="building">{{building.value}}
+    </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Month:</ion-label>
+    <ion-select [disabled]="!isBuildingSelected" [value]="newEntryMonth" (ionChange)="currentMonthChanged($any($event.target).value)" placeholder="Select month">
+      <ion-select-option *ngFor="let month of monthsDropdown" [value]="month.value">{{month.value}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-button style="width:300px;height:50px;padding: 10px;" [disabled]="!enableSearch" (click)="search($event)">Search</ion-button>
+  
+  <ngx-datatable style="height: 350px" class="material" [rows]="rows" [columns]="columns" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+  [scrollbarV]="true" ></ngx-datatable>
+   
+  <h2 style="color:rgb(33, 129, 41)">Total : {{sum}}</h2>
+</div>

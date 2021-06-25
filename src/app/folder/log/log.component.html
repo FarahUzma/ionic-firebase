@@ -1,0 +1,45 @@
+<div id="log-component-container">
+  <h1 id="title">Log a recharge</h1>
+  <ion-list style="margin-top:40px">
+    <!-- start: Select a building -->
+    <ion-item>
+      <ion-label> Building Name</ion-label>
+      <ion-select  (ionChange)="onBuildingSelected($any($event.target).value)" placeholder="Select Building">
+      <ion-select-option *ngFor="let building of buildingsDropdown" [value]="building">{{building.value}}
+      </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Select a room number -->
+    <ion-item>
+      <ion-label>Room number</ion-label>
+      <ion-select  [disabled]="!isBuildingSelected" (ionChange)="roomNumberSelected($any($event.target).value)" placeholder="Select Room Number">
+        <ion-select-option *ngFor="let room of roomsDropdown" [value]="room">{{room.value}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Show current amount of the room -->
+    <ion-item>
+      <ion-label>Month:</ion-label>
+      <ion-select [disabled]="!isBuildingSelected || !isRoomSelected" [value]="newEntryMonth" (ionChange)="currentMonthChanged($any($event.target).value)" placeholder="Select month">
+        <ion-select-option *ngFor="let month of monthsDropdown" [value]="month.value">{{month.value}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item style="padding-top:7px" [disabled]="currentAmount<0">
+      <h4>Current amount: {{currentAmount < 0 || currentAmountFetchInProgress || creatingNewEntryInProgress ? '' : currentAmount}} {{currentAmountFetchInProgress ? 'Loading...' : ''}} {{creatingNewEntryInProgress ? 'Updating...' : ''}}</h4>
+    </ion-item>
+
+    <div style="padding:15px">
+      <h2>Enter a new entry</h2>
+      <ion-item>
+        <ion-label>Amount:</ion-label>
+        <ion-input  [disabled]="!isBuildingSelected || !isRoomSelected" (ionChange)="newEntryAmountEntered($any($event.target).value)"
+                    type="number" name="newAmount" [(ngModel)]="newEntryAmount"
+                    placeholder="Enter new amount"></ion-input>
+      </ion-item>
+      <ion-button style="width:300px" [disabled]="!enableAddEntryButton" (click)="addNewEntryLog($event)">Add Amount</ion-button>
+    </div>
+  </ion-list>
+</div>

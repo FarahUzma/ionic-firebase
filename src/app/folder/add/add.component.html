@@ -1,0 +1,45 @@
+<div id="add-component-container">
+  <h1 id="title">Modify</h1>
+  <ion-spinner *ngIf="showSpinner" style="width:100%"></ion-spinner>
+  <ion-list style="margin-top:40px">
+    <!-- start: Select a building -->
+    <ion-item>
+      <ion-label> Building Name</ion-label>
+      <ion-select  (ionChange)="onBuildingSelected($any($event.target).value)" placeholder="Select Building">
+      <ion-select-option *ngFor="let building of buildingsDropdown" [value]="building">{{building.value}}
+      </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Select a room number -->
+    <ion-item>
+      <ion-label>Room number</ion-label>
+      <ion-select  [disabled]="!isBuildingSelected" (ionChange)="roomNumberSelected($any($event.target).value)" placeholder="Select Room Number">
+        <ion-select-option *ngFor="let room of roomsDropdown" [value]="room">{{room.value}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button style="width:300px" *ngIf="enableModifyButton" 
+    (click)="enableModificationFeilds($event)">Modify Record</ion-button>
+
+    <div *ngIf="showResults">
+          <h1 id="subTitles">Vc No :</h1><ion-item>
+          <ion-input (ionChange)="newVcNo($any($event.target).value)" style="
+          color: brown;font-weight: 20rem;font-size: 25px;" [disabled]="disableFields" [(ngModel)]="vcNo">
+        
+        </ion-input>
+        </ion-item>
+        <h1 id="subTitles"> Stb No :</h1>
+       <ion-item>
+          <ion-input (ionChange)="newStbNo($any($event.target).value)" style="
+          color: brown;font-weight: 20rem;font-size: 25px;" [disabled]="disableFields" [(ngModel)]= "stbNo">
+         
+        </ion-input>
+        </ion-item>
+        <ion-button style="width:300px" [disabled]="disableFields"
+        (click)="ModifyEntry($event)">Submit</ion-button>
+     
+    </div>
+    <h1 *ngIf="isdone" style="color: green;padding: 10px;">Done</h1>
+  </ion-list>
+</div>

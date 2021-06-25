@@ -1,0 +1,21 @@
+<div id="dup-component-container">
+  <h1 id="title">Find Duplicates Below</h1>
+  
+  <ion-button style="width:300px;margin-left:10px"
+  (click)="runEngine()">Run Engine</ion-button>
+  <ion-spinner style="width:300px;" 
+  name="bubbles" *ngIf="showSpinner"></ion-spinner>
+
+  <ion-grid *ngIf="showResults" style="margin-left:10px">
+    <ion-row style="background-color: aqua;">
+      <ion-col>Building Name</ion-col>
+      <ion-col>Room No</ion-col>
+      <ion-col>Vc No</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let dup of distinctDuplicates">
+      <ion-col>{{ dup.buildingName}}</ion-col>
+      <ion-col>{{ dup.rooms.roomNo }}</ion-col>
+      <ion-col>{{ dup.rooms.vcNo }}</ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

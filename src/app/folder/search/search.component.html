@@ -1,0 +1,45 @@
+<div id="search">
+  <h1 id="title">Find VC No below</h1>
+  <h1 *ngIf="error" style="color: brown;text-decoration: double;
+  text-shadow: 2px;
+  font-size:30px;
+  padding: 20px;
+  font-family: Garamond, serif;">ERROR OCCURRED</h1>
+  <ion-spinner *ngIf="showSpinner" style="width:100%"></ion-spinner>
+  <ion-label style="padding:20px">Building Name</ion-label>
+  <ion-list  style="padding:20px">
+    <ion-item>
+      <ion-select [disabled]="disableFields" (ionChange)="buildingSelection($any($event.target).value)" placeholder="Select One">
+      <ion-select-option *ngFor="let build of buildings" [value]="build">{{build.value}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+   </ion-list>
+
+   <ion-content [scrollEvents]="true" style="height: 200px;">
+    <ion-label style="padding:20px">Select Room No</ion-label>
+    <ion-searchbar [value]="roomNoSearchString"
+    (input)="searchRoomNo($any($event.target).value)" (ionClear)="dataCleared()" placeholder="Search"></ion-searchbar>
+    <ion-list [inset]=true>
+      <ion-item *ngFor="let room of rooms" (click)="medClicked($event, room)">
+        {{ room }}</ion-item>
+    </ion-list>
+
+</ion-content>
+<ion-button *ngIf="roomChosen" id="search-button" name="searchB"
+    (click)="search()"
+    >Search</ion-button>
+
+
+  <ion-row style="width:40%" *ngIf="showResults">
+    <ion-col ion-col-3>
+      <ion-item>
+        <ion-input style="
+        color: brown;font-weight: 20rem;font-size: 25px;" disabled>
+        {{vcNo}}</ion-input>
+      </ion-item>
+    </ion-col>
+
+        <ion-button style="padding-top:7px" color="medium" (click)="copyString()">Copy</ion-button>
+
+  </ion-row>
+</div>

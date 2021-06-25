@@ -1,0 +1,8 @@
+{
+  "name": "icrisat",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "623efee1"
+}
